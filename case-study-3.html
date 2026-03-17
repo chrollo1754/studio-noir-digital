@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crimson Meridian — Studio Noir Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#faf7f2;--warm-white:#f5f1ea;--paper:#ede9e0;--paper-mid:#e0dbd0;--charcoal:#2a2620;--charcoal-mid:#3d3830;--charcoal-dim:#6b6560;--charcoal-faint:rgba(42,38,32,0.35);--rust:#b05c3a;--rust-dim:#c8795a;--rust-pale:rgba(176,92,58,0.1);--border:rgba(42,38,32,0.1);--border-mid:rgba(42,38,32,0.18);--display:'DM Serif Display',Georgia,serif;--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--script:'Satisfy',cursive;--transition:cubic-bezier(0.25,0.46,0.45,0.94);--transition-slow:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--cream);color:var(--charcoal);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none}
+.cursor{position:fixed;width:9px;height:9px;background:var(--rust);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(176,92,58,0.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9000}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--paper)}::-webkit-scrollbar-thumb{background:var(--rust);border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.4rem 3.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(250,247,242,0.92);backdrop-filter:blur(18px);box-shadow:0 1px 0 var(--border)}
+.nav-logo{font-family:var(--script);font-size:1.35rem;color:var(--charcoal);text-decoration:none}
+.nav-back{display:inline-flex;align-items:center;gap:.6rem;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;transition:color .3s;font-weight:400}
+.nav-back:hover{color:var(--rust)}
+.cs-hero{position:relative;height:90vh;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
+.cs-hero-bg{position:absolute;inset:0}
+.cs-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(250,247,242,1) 0%,rgba(250,247,242,0.2) 55%,transparent 100%)}
+.cs-hero-content{position:relative;z-index:2;padding:5rem 3.5rem;max-width:1100px;width:100%}
+.cs-hero-tag{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--rust);margin-bottom:1rem;display:block;opacity:0;animation:fadeUp .9s var(--transition-slow) .3s forwards}
+.cs-hero-title{font-family:var(--display);font-size:clamp(3rem,7vw,6rem);font-weight:400;line-height:1.05;color:var(--charcoal);opacity:0;animation:fadeUp .9s var(--transition-slow) .5s forwards}
+.cs-hero-title em{font-style:italic;color:var(--rust)}
+.cs-meta{display:flex;gap:3rem;margin-top:2rem;opacity:0;animation:fadeUp .9s var(--transition-slow) .75s forwards;flex-wrap:wrap}
+.cs-meta-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--charcoal-faint);margin-bottom:.3rem}
+.cs-meta-value{font-family:var(--serif);font-size:.95rem;color:var(--charcoal-mid)}
+.cs-body{max-width:1100px;margin:0 auto;padding:5rem 3.5rem 8rem}
+.cs-intro{display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;margin-bottom:6rem;align-items:start}
+.cs-intro-lead{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.3;color:var(--charcoal)}
+.cs-intro-lead em{font-style:italic;color:var(--rust)}
+.cs-intro-body{font-family:var(--serif);font-size:1rem;line-height:1.9;color:var(--charcoal-dim);font-style:italic;padding-top:.5rem}
+.cs-artwork-full{position:relative;margin-bottom:4rem}
+.cs-artwork-caption{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--charcoal-faint);margin-top:.8rem;text-align:right}
+.cs-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:4rem}
+.cs-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:4rem}
+.cs-art-item{position:relative;overflow:hidden;border:1px solid var(--border)}
+.cs-art-item svg{width:100%;display:block}
+.cs-process{margin-bottom:6rem}
+.cs-section-label{font-family:var(--script);font-size:1rem;color:var(--rust);display:block;margin-bottom:.8rem}
+.cs-section-title{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--charcoal);margin-bottom:2.5rem;line-height:1.1}
+.cs-section-title em{font-style:italic;color:var(--rust)}
+.cs-process-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--paper-mid);margin-bottom:4rem}
+.cs-step{background:var(--cream);padding:2.5rem}
+.cs-step::before{content:attr(data-num);font-family:var(--display);font-size:3rem;color:var(--rust);opacity:.15;line-height:1;display:block;margin-bottom:.8rem;font-style:italic}
+.cs-step-title{font-family:var(--display);font-size:1.2rem;color:var(--charcoal);margin-bottom:.8rem}
+.cs-step-body{font-family:var(--serif);font-size:.88rem;color:var(--charcoal-dim);line-height:1.8;font-style:italic}
+.cs-press{margin-bottom:6rem}
+.cs-press-logos{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border-mid)}
+.cs-press-item{background:var(--cream);padding:2.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem}
+.cs-press-name{font-family:var(--display);font-size:1.3rem;font-style:italic;color:var(--charcoal-mid)}
+.cs-press-note{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--charcoal-faint)}
+.cs-quote{background:var(--charcoal);color:var(--cream);padding:5rem;margin-bottom:6rem;position:relative;overflow:hidden}
+.cs-quote::before{content:'\201C';font-family:var(--display);font-size:12rem;position:absolute;top:-2rem;left:2rem;color:var(--rust);opacity:.12;line-height:1}
+.cs-quote-text{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,1.7rem);font-style:italic;line-height:1.7;max-width:700px;position:relative;z-index:1;margin-bottom:1.5rem;color:rgba(250,247,242,0.9)}
+.cs-quote-author{font-family:var(--script);font-size:1.1rem;color:var(--rust-dim)}
+.cs-quote-role{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,247,242,0.35);margin-top:.2rem}
+.cs-results{margin-bottom:6rem}
+.cs-results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-mid)}
+.cs-result-item{background:var(--cream);padding:2.5rem;text-align:center}
+.cs-result-num{font-family:var(--display);font-size:2.8rem;color:var(--rust);line-height:1;margin-bottom:.5rem}
+.cs-result-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--charcoal-faint);line-height:1.5}
+.cs-nav-footer{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border-mid);margin-top:6rem}
+.cs-nav-project{background:var(--warm-white);padding:3rem;text-decoration:none;display:flex;flex-direction:column;gap:.5rem;transition:background .3s}
+.cs-nav-project:hover{background:var(--paper)}
+.cs-nav-dir{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--charcoal-faint)}
+.cs-nav-pname{font-family:var(--display);font-size:1.5rem;color:var(--charcoal)}
+.cs-nav-pname em{font-style:italic;color:var(--rust)}
+.cs-nav-arrow{font-size:1.5rem;color:var(--rust);margin-top:.3rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--transition-slow),transform .8s var(--transition-slow)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@media(hover:none){body{cursor:auto}.cursor,.cursor-ring{display:none}a,button{cursor:pointer}}
+@media(max-width:768px){nav{padding:1.2rem 1.5rem}.cs-hero-content{padding:3rem 1.5rem}.cs-body{padding:3rem 1.5rem 5rem}.cs-intro{grid-template-columns:1fr;gap:2rem}.cs-process-steps{grid-template-columns:1fr}.cs-results-grid{grid-template-columns:1fr 1fr}.cs-grid-2,.cs-grid-3{grid-template-columns:1fr}.cs-nav-footer{grid-template-columns:1fr}.cs-quote{padding:3rem 2rem}.cs-press-logos{grid-template-columns:1fr 1fr}.cs-meta{gap:1.5rem}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="index.html" class="nav-logo">Studio Noir Digital</a>
+  <a href="index.html#work" class="nav-back">Back to Work</a>
+</nav>
+
+<section class="cs-hero">
+  <div class="cs-hero-bg">
+    <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;position:absolute;inset:0">
+      <defs>
+        <radialGradient id="chg1" cx="55%" cy="45%" r="65%"><stop offset="0%" stop-color="#d8b8a0"/><stop offset="100%" stop-color="#e8e0d0"/></radialGradient>
+        <radialGradient id="chg2" cx="30%" cy="60%" r="50%"><stop offset="0%" stop-color="#a03020" stop-opacity="0.25"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <filter id="cblur"><feGaussianBlur stdDeviation="30"/></filter>
+      </defs>
+      <rect width="1440" height="900" fill="url(#chg1)"/>
+      <ellipse cx="700" cy="500" rx="600" ry="400" fill="url(#chg2)" filter="url(#cblur)"/>
+      <!-- fashion editorial motif: flowing fabric lines -->
+      <g opacity="0.12" fill="none" stroke="#7a3020" stroke-width="1.5">
+        <path d="M 200 0 Q 400 200 300 400 Q 200 600 400 900"/>
+        <path d="M 350 0 Q 500 250 450 500 Q 400 750 600 900"/>
+        <path d="M 600 0 Q 700 300 650 500 Q 600 700 800 900"/>
+        <path d="M 900 0 Q 950 200 1000 400 Q 1050 600 900 900"/>
+        <path d="M 1100 0 Q 1200 300 1150 500 Q 1100 700 1300 900"/>
+      </g>
+      <!-- Editorial typography motif -->
+      <text x="720" y="450" text-anchor="middle" font-family="Georgia" font-size="180" fill="#9a4030" opacity="0.05" font-style="italic">CM</text>
+      <!-- geometric accent -->
+      <line x1="0" y1="450" x2="1440" y2="450" stroke="#8a4030" stroke-width="0.5" opacity="0.08"/>
+    </svg>
+  </div>
+  <div class="cs-hero-overlay"></div>
+  <div class="cs-hero-content">
+    <span class="cs-hero-tag">Editorial · Fashion · Creative Direction · 2024</span>
+    <h1 class="cs-hero-title">Crimson<br><em>Meridian</em></h1>
+    <div class="cs-meta">
+      <div class="cs-meta-item"><div class="cs-meta-label">Client</div><div class="cs-meta-value">Obsidian Apparel</div></div>
+      <div class="cs-meta-item"><div class="cs-meta-label">Scope</div><div class="cs-meta-value">Campaign Illustration + Direction</div></div>
+      <div class="cs-meta-item"><div class="cs-meta-label">Duration</div><div class="cs-meta-value">6 weeks</div></div>
+      <div class="cs-meta-item"><div class="cs-meta-label">Year</div><div class="cs-meta-value">2024</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="cs-body">
+  <div class="cs-intro reveal">
+    <div class="cs-intro-lead">Fashion that refuses to be <em>background noise</em> — built for the kind of person who stops traffic.</div>
+    <div class="cs-intro-body">Obsidian Apparel needed a launch campaign that positioned them immediately at the intersection of fashion and art. No photography. All illustration. The directive: cinematic, narrative, stop-scroll. The result was a six-piece editorial series that earned features in Hypebeast and Highsnobiety within ten days of release.</div>
+  </div>
+
+  <!-- HERO EDITORIAL SPREAD -->
+  <div class="cs-artwork-full reveal">
+    <svg viewBox="0 0 1200 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+      <defs>
+        <radialGradient id="cm1" cx="35%" cy="45%" r="50%"><stop offset="0%" stop-color="#d8b8a0"/><stop offset="100%" stop-color="#e8e2d8"/></radialGradient>
+        <radialGradient id="cm2" cx="75%" cy="50%" r="45%"><stop offset="0%" stop-color="#c8a888"/><stop offset="100%" stop-color="#ddd8d0"/></radialGradient>
+        <linearGradient id="cmfade" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="45%" stop-color="transparent"/><stop offset="100%" stop-color="#e8e2d8" stop-opacity="0.9"/></linearGradient>
+        <filter id="csblur"><feGaussianBlur stdDeviation="15"/></filter>
+      </defs>
+      <rect width="1200" height="560" fill="#e8e2d8"/>
+      <rect x="0" y="0" width="600" height="560" fill="url(#cm1)"/>
+      <rect x="600" y="0" width="600" height="560" fill="url(#cm2)"/>
+      <!-- center dividing line / gutter -->
+      <line x1="600" y1="0" x2="600" y2="560" stroke="#c8a080" stroke-width="0.8" opacity="0.4"/>
+
+      <!-- LEFT FIGURE: draped coat, strong pose -->
+      <g transform="translate(300,30)">
+        <!-- coat/silhouette -->
+        <path d="M-55,80 Q-65,120 -70,200 Q-75,300 -60,480 L60,480 Q75,300 70,200 Q65,120 55,80 Q30,95 0,92 Q-30,95 -55,80" fill="#5a4030" opacity="0.5"/>
+        <!-- wide lapels -->
+        <path d="M-55,80 Q-20,100 0,92" fill="none" stroke="#7a5040" stroke-width="1" opacity="0.5"/>
+        <path d="M55,80 Q20,100 0,92" fill="none" stroke="#7a5040" stroke-width="1" opacity="0.5"/>
+        <!-- belt line -->
+        <rect x="-58" y="185" width="116" height="10" rx="2" fill="#3a2818" opacity="0.4"/>
+        <!-- head/neck -->
+        <ellipse cx="0" cy="55" rx="28" ry="34" fill="#cca888" opacity="0.7"/>
+        <!-- face suggestion -->
+        <line x1="-8" y1="44" x2="-2" y2="44" stroke="#7a4828" stroke-width="1.5" opacity="0.45"/>
+        <line x1="2" y1="44" x2="8" y2="44" stroke="#7a4828" stroke-width="1.5" opacity="0.45"/>
+        <!-- flowing coat bottom -->
+        <path d="M-60,400 Q-80,450 -70,480" fill="none" stroke="#5a4030" stroke-width="1.5" opacity="0.35"/>
+        <path d="M60,400 Q80,450 70,480" fill="none" stroke="#5a4030" stroke-width="1.5" opacity="0.35"/>
+        <!-- pocket detail -->
+        <rect x="-50" y="230" width="25" height="30" rx="2" fill="none" stroke="#7a5040" stroke-width="0.7" opacity="0.4"/>
+        <!-- collar raised -->
+        <path d="M-30,80 Q-15,68 0,70 Q15,68 30,80" fill="none" stroke="#6a4030" stroke-width="1.2" opacity="0.5"/>
+      </g>
+
+      <!-- RIGHT FIGURE: editorial pose, structured jacket -->
+      <g transform="translate(900,40)">
+        <!-- jacket/blazer -->
+        <path d="M-50,85 Q-60,130 -55,220 Q-50,340 -45,480 L45,480 Q50,340 55,220 Q60,130 50,85 Q25,98 0,95 Q-25,98 -50,85" fill="#7a3820" opacity="0.45"/>
+        <!-- structured shoulders -->
+        <path d="M-65,95 Q-55,85 -40,90" fill="none" stroke="#8a4828" stroke-width="1.5" opacity="0.5"/>
+        <path d="M65,95 Q55,85 40,90" fill="none" stroke="#8a4828" stroke-width="1.5" opacity="0.5"/>
+        <!-- lapel lines -->
+        <path d="M-50,85 Q-18,105 0,95" fill="none" stroke="#9a5838" stroke-width="1" opacity="0.55"/>
+        <path d="M50,85 Q18,105 0,95" fill="none" stroke="#9a5838" stroke-width="1" opacity="0.55"/>
+        <!-- button line -->
+        <line x1="0" y1="100" x2="0" y2="350" stroke="#5a2810" stroke-width="0.8" opacity="0.3"/>
+        <circle cx="0" cy="130" r="3" fill="#5a2810" opacity="0.35"/>
+        <circle cx="0" cy="155" r="3" fill="#5a2810" opacity="0.35"/>
+        <circle cx="0" cy="180" r="3" fill="#5a2810" opacity="0.35"/>
+        <!-- head/neck -->
+        <ellipse cx="0" cy="58" rx="26" ry="32" fill="#c8a080" opacity="0.7"/>
+        <!-- hair suggestion (swept) -->
+        <path d="M-28,38 Q-20,10 10,15 Q30,20 28,38" fill="#3a2010" opacity="0.45"/>
+        <!-- face -->
+        <line x1="-8" y1="46" x2="-2" y2="46" stroke="#7a4828" stroke-width="1.5" opacity="0.45"/>
+        <line x1="2" y1="46" x2="8" y2="46" stroke="#7a4828" stroke-width="1.5" opacity="0.45"/>
+        <path d="M-4,58 Q0,62 4,58" fill="none" stroke="#7a4828" stroke-width="0.8" opacity="0.4"/>
+      </g>
+
+      <!-- editorial text overlay -->
+      <text x="600" y="510" text-anchor="middle" font-family="Georgia" font-size="10" fill="#8a4030" opacity="0.45" letter-spacing="6">OBSIDIAN APPAREL · CRIMSON MERIDIAN · AW 2024</text>
+      <!-- issue marker top right -->
+      <text x="1170" y="35" text-anchor="end" font-family="Georgia" font-size="8" fill="#9a5030" opacity="0.4" letter-spacing="3">No. 001</text>
+      <!-- ruled lines top -->
+      <line x1="30" y1="30" x2="1170" y2="30" stroke="#c8a080" stroke-width="0.5" opacity="0.3"/>
+      <line x1="30" y1="38" x2="1170" y2="38" stroke="#c8a080" stroke-width="0.3" opacity="0.15"/>
+      <!-- decorative corner marks -->
+      <g stroke="#b08050" stroke-width="0.8" fill="none" opacity="0.3">
+        <path d="M30,30 L30,55 M30,30 L55,30"/>
+        <path d="M1170,30 L1170,55 M1170,30 L1145,30"/>
+        <path d="M30,530 L30,505 M30,530 L55,530"/>
+        <path d="M1170,530 L1170,505 M1170,530 L1145,530"/>
+      </g>
+    </svg>
+    <div class="cs-artwork-caption">Campaign spread — Crimson Meridian editorial, AW 2024</div>
+  </div>
+
+  <!-- 2-col supporting -->
+  <div class="cs-grid-2 reveal">
+    <div class="cs-art-item">
+      <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+        <rect width="560" height="400" fill="#e4dcd0"/>
+        <!-- magazine cover layout -->
+        <rect x="0" y="0" width="560" height="400" fill="none" stroke="#c8a080" stroke-width="1" opacity="0.4"/>
+        <!-- masthead area -->
+        <rect x="0" y="0" width="560" height="60" fill="#3a2010" opacity="0.7"/>
+        <text x="280" y="38" text-anchor="middle" font-family="Georgia" font-size="22" fill="rgba(250,247,242,0.9)" letter-spacing="8" font-style="italic">MERIDIAN</text>
+        <text x="280" y="54" text-anchor="middle" font-family="Georgia" font-size="7" fill="rgba(200,160,100,0.7)" letter-spacing="5">FASHION · ART · CULTURE</text>
+        <!-- figure placement box -->
+        <rect x="50" y="80" width="220" height="280" fill="#c8b890" opacity="0.4"/>
+        <!-- abstract fashion figure in box -->
+        <g transform="translate(160,160)" fill="#7a4828" opacity="0.5">
+          <ellipse cx="0" cy="-50" rx="22" ry="28"/>
+          <path d="M-35,0 Q-40,60 -30,120 L30,120 Q40,60 35,0 Q15,10 0,8 Q-15,10 -35,0"/>
+          <path d="M-35,0 Q-55,40 -50,80" fill="none" stroke="#7a4828" stroke-width="1.5"/>
+          <path d="M35,0 Q55,40 50,80" fill="none" stroke="#7a4828" stroke-width="1.5"/>
+        </g>
+        <!-- cover lines right side -->
+        <text x="310" y="110" font-family="Georgia" font-size="10" fill="#5a3820" opacity="0.6" font-style="italic">The New</text>
+        <text x="310" y="126" font-family="Georgia" font-size="10" fill="#5a3820" opacity="0.6" font-style="italic">Obsidian</text>
+        <line x1="310" y1="132" x2="490" y2="132" stroke="#c8a080" stroke-width="0.5" opacity="0.4"/>
+        <text x="310" y="155" font-family="Georgia" font-size="8" fill="#8a5830" opacity="0.5">How darkness</text>
+        <text x="310" y="169" font-family="Georgia" font-size="8" fill="#8a5830" opacity="0.5">became style</text>
+        <text x="310" y="200" font-family="Georgia" font-size="9" fill="#5a3820" opacity="0.55" font-style="italic">Crimson</text>
+        <text x="310" y="215" font-family="Georgia" font-size="9" fill="#5a3820" opacity="0.55" font-style="italic">Meridian</text>
+        <line x1="310" y1="221" x2="490" y2="221" stroke="#c8a080" stroke-width="0.5" opacity="0.4"/>
+        <text x="310" y="240" font-family="Georgia" font-size="7" fill="#9a6040" opacity="0.45" letter-spacing="2">AW 2024</text>
+        <!-- barcode area -->
+        <rect x="310" y="320" width="80" height="35" fill="none" stroke="#8a5030" stroke-width="0.5" opacity="0.3"/>
+        <text x="310" y="370" font-family="Georgia" font-size="7" fill="#8a5030" opacity="0.35" letter-spacing="1">ISSUE 001 · €18</text>
+      </svg>
+      <div class="cs-artwork-caption" style="padding:.6rem">Editorial cover concept</div>
+    </div>
+    <div class="cs-art-item">
+      <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+        <rect width="560" height="400" fill="#ddd6c8"/>
+        <!-- textile / pattern detail -->
+        <g opacity="0.45">
+          <!-- houndstooth-like geometric weave -->
+          <defs>
+            <pattern id="htooth" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <rect width="40" height="40" fill="#e8dece"/>
+              <polygon points="0,0 20,0 0,20" fill="#7a4828" opacity="0.4"/>
+              <polygon points="20,20 40,20 40,40 20,40" fill="#7a4828" opacity="0.4"/>
+              <polygon points="20,0 40,0 40,20" fill="#c8a880" opacity="0.3"/>
+              <polygon points="0,20 20,40 0,40" fill="#c8a880" opacity="0.3"/>
+            </pattern>
+          </defs>
+          <rect x="60" y="40" width="440" height="320" fill="url(#htooth)"/>
+          <rect x="60" y="40" width="440" height="320" fill="none" stroke="#9a5828" stroke-width="1" opacity="0.3"/>
+        </g>
+        <text x="280" y="380" text-anchor="middle" font-family="Georgia" font-size="8" fill="#8a5030" opacity="0.5" letter-spacing="3">TEXTILE STUDY · AW 2024</text>
+      </svg>
+      <div class="cs-artwork-caption" style="padding:.6rem">Textile pattern study</div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="cs-process reveal">
+    <span class="cs-section-label">Process</span>
+    <h2 class="cs-section-title">Editorial as <em>Narrative</em></h2>
+    <div class="cs-process-steps">
+      <div class="cs-step" data-num="01">
+        <div class="cs-step-title">Concept Development</div>
+        <div class="cs-step-body">The starting point was a single sentence from the creative brief: "dress like the last person at the end of the world who still cares." From that, a visual language emerged — structural, formal, a little melancholic. Illustration over photography because it allowed us to build unreality.</div>
+      </div>
+      <div class="cs-step" data-num="02">
+        <div class="cs-step-title">Illustration Direction</div>
+        <div class="cs-step-body">Six editorial spreads, each a distinct setting within the same collapsed world. Every figure was composed like a painting — deliberate proportions, atmospheric tonal work, clothing treated as sculpture. The campaign reads like a gallery, not an advert.</div>
+      </div>
+      <div class="cs-step" data-num="03">
+        <div class="cs-step-title">Digital Release Strategy</div>
+        <div class="cs-step-body">Released across 3 weeks in drops of two images each, with accompanying editorial text. The drip approach generated anticipation and kept the brand in conversation across two consecutive news cycles in both Hypebeast and Highsnobiety.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESS FEATURES -->
+  <div class="cs-press reveal">
+    <span class="cs-section-label">As Seen In</span>
+    <h2 class="cs-section-title">Press <em>Coverage</em></h2>
+    <div class="cs-press-logos">
+      <div class="cs-press-item"><div class="cs-press-name">Hypebeast</div><div class="cs-press-note">Feature · Week 1</div></div>
+      <div class="cs-press-item"><div class="cs-press-name">Highsnobiety</div><div class="cs-press-note">Cover Story · Week 2</div></div>
+      <div class="cs-press-item"><div class="cs-press-name">Dezeen</div><div class="cs-press-note">Editorial · Week 3</div></div>
+      <div class="cs-press-item"><div class="cs-press-name">It's Nice That</div><div class="cs-press-note">Showcase · Week 3</div></div>
+    </div>
+  </div>
+
+  <div class="cs-quote reveal">
+    <div class="cs-quote-text">"Working with Studio Noir felt like having a visionary in the room. They pushed our brand into a visual territory we didn't know we needed — and couldn't imagine being without."</div>
+    <div class="cs-quote-author">Priya Menon</div>
+    <div class="cs-quote-role">Brand Lead, Obsidian Apparel</div>
+  </div>
+
+  <div class="cs-results reveal">
+    <span class="cs-section-label">Results</span>
+    <h2 class="cs-section-title">The Work <em>Delivered</em></h2>
+    <div class="cs-results-grid">
+      <div class="cs-result-item"><div class="cs-result-num">4</div><div class="cs-result-label">Major press features in 3 weeks</div></div>
+      <div class="cs-result-item"><div class="cs-result-num">280%</div><div class="cs-result-label">Instagram follower growth</div></div>
+      <div class="cs-result-item"><div class="cs-result-num">6</div><div class="cs-result-label">Editorial illustrations delivered</div></div>
+      <div class="cs-result-item"><div class="cs-result-num">5★</div><div class="cs-result-label">Client satisfaction rating</div></div>
+    </div>
+  </div>
+
+  <div class="cs-nav-footer reveal">
+    <a href="case-study-2.html" class="cs-nav-project">
+      <div class="cs-nav-dir">← Previous</div>
+      <div class="cs-nav-pname">The Sovereign <em>Series</em></div>
+      <div class="cs-nav-arrow">←</div>
+    </a>
+    <a href="index.html#contact" class="cs-nav-project" style="text-align:right;align-items:flex-end">
+      <div class="cs-nav-dir">Ready to start?</div>
+      <div class="cs-nav-pname">Start Your <em>Commission</em></div>
+      <div class="cs-nav-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.2)';ring.style.borderColor='rgba(176,92,58,0.7)'});el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(176,92,58,0.45)'})});
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
